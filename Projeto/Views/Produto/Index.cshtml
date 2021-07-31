@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Projeto.Models.Produtos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Procura por Nome: @Html.TextBox("SearchString")
+        <input type="submit" value="Busca" />
+
+    </p>
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Estoque", "Index", new { sortOrder = ViewBag.EstoqueSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Valor", "Index", new { sortOrder = ViewBag.ValorSortParm })
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estoque)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
